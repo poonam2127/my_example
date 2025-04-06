@@ -1,0 +1,23 @@
+%h1
+  %strong Que:
+  = @question.title
+%p
+  %strong Category:
+  = @question.category
+%p
+  %strong Description:
+  = @question.body
+%p
+  %strong Status:
+  = @question.status
+%hr/
+%h2 Answers
+%div.mb-2{id: "answers_#{@question.id}"}
+  - if @question.answers.any?
+    = render 'answers/list', question: @question
+  - else
+    %p No answers yet.
+  - if current_user.lawyer? && @question.open?
+    %h3 Submit an Answer (as Lawyer)
+    = render partial: "answers/form", locals: { question: @question }
+= link_to "Back to Questions", questions_path

@@ -1,0 +1,13 @@
+%h1.text-center.mb-4 Open Legal Questions
+- if @lawyer_questions.any?
+  .list-group
+    - @lawyer_questions.each do |question|
+      .list-group-item
+        %h5= link_to question.title, question_path(question)
+        %small.text-muted
+          Category: #{question.category}
+        %p.text-gray-800= truncate(question.body, length: 150)
+        .mt-2
+          = link_to "View & Answer", question_path(question), class: "text-blue-600 underline hover:text-blue-800"
+- else
+  %p No open questions at the moment.

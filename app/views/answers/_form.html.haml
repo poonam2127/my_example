@@ -1,0 +1,9 @@
+= form_with model: [@question, Answer.new] do |f|
+  .mt-2
+    = f.label :response_text, "Your Legal Advice"
+    = f.text_area :response_text, class: 'form-control'
+  .mt-2
+    = f.label :proposed_fee, "Proposed Fee (£)"
+    = f.number_field :proposed_fee, step: 1.0, class: 'form-control'
+  .mt-2
+    = f.submit "Submit Answer", class: 'btn btn-primary btn-block'
