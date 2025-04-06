@@ -1,0 +1,15 @@
+- if question.answers.any?
+  - question.answers.each do |a|
+    .mt-2.border.p-3.rounded
+      - if a.paid? || current_user == a.user || current_user&.lawyer?
+        %p
+          %strong Advice:
+          = a.response_text
+        %p.text-sm.text-gray-500
+          Proposed Fee: £#{a.proposed_fee}
+      - elsif current_user == question.user
+        %p.italic This answer is locked until payment is approved.
+        = button_to "Approve Payment (£#{a.proposed_fee})", approve_payment_question_answer_path(question, a), method: :post, class: "btn btn-primary btn-block"
+      - else
+        %p.italic.text-gray-500 Payment required to view this answer.
+= button_to "Approve Payment (£#{Answer.first.proposed_fee})", approve_payment_question_answer_path(Question.first, Answer.first), method: :post, class: "btn btn-primary btn-block"

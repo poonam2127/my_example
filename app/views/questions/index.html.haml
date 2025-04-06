@@ -1,0 +1,13 @@
+- if current_user&.user?
+  = link_to "Ask a Question", new_question_path
+- if @questions.any?
+  %h1.text-center.mb-4 Recent Questions
+  .list-group
+    - @questions.each do |question|
+      .list-group-item
+        %h5= link_to question.title, question_path(question)
+        %p= truncate(question.body, length: 100)
+        %small.text-muted
+          Category: #{question.category}
+- else
+  %h3.text-center.mb-4 No questions at the moment.
